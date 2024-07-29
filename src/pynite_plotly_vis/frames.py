@@ -55,8 +55,23 @@ def create_element_trace(phys_member_name: str, nodes: dict[str, Node3D], member
     return trace
 
 
-    #section_name = member.section_name
+def get_fixity_colors(fixity: tuple[int]) -> str:
+    """
+    Returns an HTML string describing a color to correspond with the fixity condition
+    """
+    DX, DY, DZ, RX, RY, RZ = fixity
+    max_value = 255
+    increment = max_value // 3
 
+    fixity_X = (DX * increment, RX * 2 * increment)
+    fixity_Y = (DY * increment, RY * 2 * increment)
+    fixity_Z = (DZ * increment, RZ * 2 * increment)
+
+    hex_x = hex(max_value - fixity_X[0] - fixity_X[1]).lstrip("0x")
+    hex_y = hex(max_value - fixity_Y[0] - fixity_Y[1]).lstrip("0x")
+    hex_z = hex(max_value - fixity_Z[0] - fixity_Z[1]).lstrip("0x")
+
+    return f"#{hex_x}{hex_y}{hex_z}"
 
     
 
